@@ -4,112 +4,241 @@ import sys
 import json
 import numpy as np
 from collections import defaultdict
+import random
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")))
-from utils.phase_utils import get_phase_to_index
-
-PHASE_TO_INDEX = get_phase_to_index()
-
-class PhaseFrameGrouper:
+class VideoSequenceGenerator:
     
-    def __init__(self, train_split):
-        """
-        Initializes the PhaseFrameGrouper with a CSV file.
+    def __init__(self,
+                 frame_info,
+                 seq_len,
+                 stride,
+                 feature_vectors,
+                 feature_names,
+                 feature_labels, 
+                 sequence_directory = "/vol/scratch/SoC/misc/2024/sc22jg/val/sequences/",
+                 label_directory =  "/vol/scratch/SoC/misc/2024/sc22jg/val/labels"
+                ):
 
-        Args:
-            train_split (str): Path to the CSV file containing video ID, frame numbers, and phases.
-        """
-        self.train_split = train_split
-        self.df = None
-        self.phase_dict = defaultdict(list)
-
-
-    def load_data(self):
-        """Loads and processes the CSV file into a DataFrame."""
-        self.df = pd.read_csv(self.train_split)
-
-        # Ensure necessary columns exist
-        if not {"video_id", "frame_number", "phase", "file_path"}.issubset(self.df.columns):
-            raise ValueError("CSV must contain 'video_id', 'frame_number', 'phase', and 'file_path' columns.")
-
-        # Map phase names to numeric indexes using PHASE_TO_INDEX
-        self.df["phase_id"] = self.df["phase"].map(PHASE_TO_INDEX)
-
-        # Drop Phase 0 (which corresponds to 'unknown')
-        self.df = self.df[self.df["phase_id"] != 0]
-
-        # self.df["phase_id"] = self.df["phase_id"].astype(int)  # Convert phase IDs to integers
-
-        # Sort by phase, video, and frame number
-        self.df = self.df.sort_values(by=["phase", "video_id", "frame_number"])
-
-    def generate_phase_ranges(self):
-        """Generates frame ranges grouped by phase and video."""
-        for (phase_id, video), group in self.df.groupby(["phase", "video_id"]):
-            frame_numbers = sorted(group["frame_number"].tolist())
-            ranges = []
-
-            # Convert frames to continuous frame ranges
-            start = frame_numbers[0]
-            prev = start
-
-            for frame in frame_numbers[1:]:
-                if frame != prev + 5:  # If gap detected, finalize the previous range
-                    ranges.append(f"{video}/frames {start} - frames {prev}")
-                    start = frame  # Start new range
-                prev = frame
-
-            # Append the last range
-            ranges.append(f"{video}/frames {start} - frames {prev}")
-
-            # Store in dictionary
-            self.phase_dict[phase_id].extend(ranges)
-
-    def save_to_json(self, output_file="data/sequences/train_phases.json"):
-        """Saves the grouped phase ranges into a JSON file."""
-        with open(output_file, "w") as f:
-            json.dump(self.phase_dict, f, indent=4)
-        print(f"Saved phase frame ranges to {output_file}")
+        self.frame_info = pd.read_csv(frame_info)
+        self.seq_len = seq_len 
+        self.stride = stride
         
+        self.feature_vectors = np.load(feature_vectors)
+        self.feature_names = np.load(feature_names)
+        self.feature_labels = np.load(feature_labels)
         
+        self.sequence_directory = sequence_directory
+        self.labels_directory = label_directory
+                                        
+    
+    def create_sequence_folder(self):
         
+        video_to_indices = defaultdict(list)
+   
+        for idx, frame_path in enumerate(self.feature_names):
+            video_id = frame_path.split("/")[-2]
+            video_to_indices[video_id].append(idx)
+        
+        sequence_metadata = []
+        
+        for video_id, indices in video_to_indices.items():
+            
+            num_frames = len(indices)
+            
+            video_sequence_directory = os.path.join(self.sequence_directory, video_id)
+            video_label_directory = os.path.join(self.labels_directory, video_id)
+            
+            os.makedirs(video_sequence_directory, exist_ok=True)
+            os.makedirs(video_label_directory , exist_ok=True)
+        
+            # Generate sequences with a sliding window
+            for start_idx in range(0, num_frames - self.seq_len + 1, self.stride):
+                sequence_indices = indices[start_idx:start_idx + self.seq_len]
+                
+                # Extract features and labels
+                sequence_features = self.feature_vectors[sequence_indices]
+                sequence_labels = self.feature_labels[sequence_indices].reshape(-1, 1)  # Ensure shape (sequence_length, 1)
+
+                # Save features
+                sequence_filename = f"{video_id}_sequence_{start_idx}.npy"
+                feature_path = os.path.join(video_sequence_directory, sequence_filename)
+                np.save(feature_path, sequence_features)
+
+                # Save labels
+                label_filename = f"{video_id}_sequence_{start_idx}.npy"
+                label_path = os.path.join(video_label_directory, label_filename)
+                np.save(label_path, sequence_labels)
+
+                # Store metadata
+                sequence_metadata.append({
+                    "video_id": video_id,
+                    "sequence_path": sequence_filename,
+                    "label_path": label_filename,
+                    "start_frame": start_idx * 5,
+                    "end_frame": (start_idx + self.seq_len - 1) * 5
+                })
+                
+        # metadata_path = "/vol/scratch/SoC/misc/2024/sc22jg/val/sequences_32/label_sequences_metadata.json"
+
+        metadata_path = "data/sequences/val_label_sequences_metadata.json"
+        with open(metadata_path, "w") as f:
+            json.dump(sequence_metadata, f, indent = 4)
+
 class PhaseSequenceGenerator:
     
-    def __init__(self, phases_file, seq_len, stride, output_directory = "data/sequences/"):
+    def __init__(self,
+                 frame_info,
+                 seq_len,
+                 stride,
+                 feature_vectors,
+                 feature_names,
+                 feature_labels, 
+                 sequence_directory,
+                 label_directory 
+                ):
+
+        self.frame_info = pd.read_csv(frame_info)
+        self.seq_len = seq_len 
+        self.stride = stride
         
-       self.phases_file =  phases_file 
-       self.seq_len = seq_len
-       self.stride = stride
-       self.output_directory = output_directory
-       self.sequences_dict = {}
-       
-       
-    def load_phase_data(self):
-        """Loads train_phases.json into memory."""
-        with open(self.phases_file, "r") as f:
-            self.phase_data = json.load(f)
-       
-    def generate_sequences(self):
-        """Generates phase-pure sequences using a sliding window approach."""
-        if self.phase_data is None:
-            raise ValueError("Phase data is not loaded. Run `load_phase_data()` first.")
+        self.feature_vectors = np.load(feature_vectors)
+        self.feature_names = np.load(feature_names)
+        self.feature_labels = np.load(feature_labels)
+        
+        self.sequence_directory = sequence_directory
+        self.labels_directory = label_directory
+        
+#     def create_sequence_folder(self):
+#         video_to_indices = defaultdict(list)
 
-        for phase, video_ranges in self.phase_data.items():
-            self.sequences_dict[phase] = []
+#         # Group videos by index -> e.g. 0002_21: 0,1,....150 =
+#         for idx, frame_path in enumerate(self.feature_names):
+#             video_id = frame_path.split("/")[-2]
+#             video_to_indices[video_id].append(idx)
+        
+#         sequence_metadata = []
 
-            for range_entry in video_ranges:
-                video_id, frame_range = range_entry.split("/frames ")
+#         for video_id, indices in video_to_indices.items():
+            
+#             num_frames = len(indices)
+#             video_sequence_directory = os.path.join(self.sequence_directory, video_id)
+#             video_label_directory = os.path.join(self.labels_directory, video_id)
+            
+#             os.makedirs(video_sequence_directory, exist_ok=True)
+#             os.makedirs(video_label_directory , exist_ok=True)
 
-                # Extract start and end frame numbers
-                start_frame, end_frame = map(lambda x: int(x.replace("frames ", "")), frame_range.split(" - "))
+#             # Fetch phase boundaries for the current video
+#             phases_for_video = self.frame_info[self.frame_info["video_id"] == video_id]["phase"].values
+            
+#             # Create sequences for each phase
+#             for phase in np.unique(phases_for_video):  # Iterate over all phases
+                
+#                 # Find indices corresponding to the current phase
+#                 phase_indices = [idx for idx, phase_label in zip(indices, phases_for_video) if phase_label == phase]
+                
+#                 # Generate sequences for the current phase
+#                 for start_idx in range(0, len(phase_indices) - self.seq_len + 1, self.stride): # PROBLEM : phases may reoccur so you need to make contiguous block sequences
+#                     sequence_indices = phase_indices[start_idx:start_idx + self.seq_len]
 
-                # Generate sequences using a sliding window
-                for i in range(start_frame, end_frame - self.seq_len + 1, self.stride):
-                    sequence = [f"{video_id}/frames {frame}" for frame in range(i, i + self.seq_len, 5)]
-                    self.sequences_dict[phase].append(sequence)
+#                     # Extract features and labels for the phase-based sequence
+#                     sequence_features = self.feature_vectors[sequence_indices]
+#                     sequence_labels = self.feature_labels[sequence_indices].reshape(-1, 1)  # Ensure shape (sequence_length, 1)
 
-      
-    def save_sequences(self, output_filename="phase_sequences.npy"):
-        """Saves generated sequences to a NumPy file."""
-        output_path = os.path.join(self.output_directory, output_filename)
-        np.save(output_path, self.sequences_dict)
+#                     # Save features
+#                     sequence_filename = f"{phase}_sequence_{start_idx}.npy"
+#                     feature_path = os.path.join(video_sequence_directory, sequence_filename)
+#                     np.save(feature_path, sequence_features)
+
+#                     # Save labels
+#                     label_filename = f"{phase}_sequence_{start_idx}.npy"
+#                     label_path = os.path.join(video_label_directory, label_filename)
+#                     np.save(label_path, sequence_labels)
+
+#                     # Store metadata
+#                     sequence_metadata.append({
+#                         "video_id": video_id,
+#                         "phase": phase,
+#                         "sequence_path": sequence_filename,
+#                         "label_path": label_filename,
+#                         "start_frame": start_idx,
+#                         "end_frame": start_idx + self.seq_len - 1
+#                     })
+
+
+# POSSIBLE SOLUTION : 
+
+    def create_sequence_folder(self):
+        video_to_indices = defaultdict(list)
+        sequence_metadata = []
+
+        # Group frame indices by video ID
+        for idx, frame_path in enumerate(self.feature_names):
+            video_id = frame_path.split("/")[-2]
+            video_to_indices[video_id].append(idx)
+
+        for video_id, indices in video_to_indices.items():
+            num_frames = len(indices)
+
+            video_sequence_directory = os.path.join(self.sequence_directory, video_id)
+            video_label_directory = os.path.join(self.labels_directory, video_id)
+
+            os.makedirs(video_sequence_directory, exist_ok=True)
+            os.makedirs(video_label_directory, exist_ok=True)
+
+            # Fetch phase labels for all frames of this video
+            phases_for_video = self.frame_info[self.frame_info["video_id"] == video_id]["phase"].values
+
+            # For each unique phase, split into contiguous chunks
+            for phase in np.unique(phases_for_video):
+                # Collect all indices for the current phase
+                phase_indices_all = [idx for idx, phase_label in zip(indices, phases_for_video) if phase_label == phase]
+
+                # Split into contiguous chunks (where frame indices are sequential)
+                contiguous_blocks = []
+                current_block = []
+
+                for i, idx in enumerate(phase_indices_all):
+                    if not current_block or idx == current_block[-1] + 1:
+                        current_block.append(idx)
+                    else:
+                        contiguous_blocks.append(current_block)
+                        current_block = [idx]
+                if current_block:
+                    contiguous_blocks.append(current_block)
+
+                # Generate sequences within each contiguous block
+                for block in contiguous_blocks:
+                    for start_idx in range(0, len(block) - self.seq_len + 1, self.stride):
+                        sequence_indices = block[start_idx:start_idx + self.seq_len]
+
+                        # Extract features and labels
+                        sequence_features = self.feature_vectors[sequence_indices]
+                        sequence_labels = self.feature_labels[sequence_indices].reshape(-1, 1)
+
+                        # Save features
+                        feature_filename = f"{phase}_sequence_{sequence_indices[0]}.npy"
+                        feature_path = os.path.join(video_sequence_directory, feature_filename)
+                        np.save(feature_path, sequence_features)
+
+                        # Save labels
+                        label_filename = f"{phase}_sequence_{sequence_indices[0]}.npy"
+                        label_path = os.path.join(video_label_directory, label_filename)
+                        np.save(label_path, sequence_labels)
+
+                        # Save metadata
+                        sequence_metadata.append({
+                            "video_id": video_id,
+                            "phase": phase,
+                            "sequence_path": feature_filename,
+                            "label_path": label_filename,
+                            "start_frame": sequence_indices[0] * 5 ,
+                            "end_frame": sequence_indices[-1] * 5
+                        })
+                        
+                        
+            # metadata_path = "/vol/scratch/SoC/misc/2024/sc22jg/train/label_sequences_metadata.json"
+            metadata_path = "data/sequences/train_label_sequences_metadata.json"
+
+            with open(metadata_path, "w") as f:
+                json.dump(sequence_metadata, f, indent = 4)
+

@@ -1,35 +1,32 @@
-video_id,num_frames,num_phases
-0002_21,561,3
-0002_22,465,3
-0002_23,309,2
-0002_24,2073,4
-0002_29_X28,1155,4
-0002_30,4521,4
-0003_21,1059,3
-0003_23,330,3
-0003_24,3006,4
-0003_29,2433,4
-0004_21,780,3
-0004_22,609,3
-1000_21,486,3
-1000_22,309,3
-1000_23,210,3
-1000_26_X25,321,3
-1000_28_X27,192,2
-1003_26,477,3
-1003_29,1314,4
-1004_23,213,2
-1004_26_X25,510,3
-1004_27_X26,579,3
-1004_31,4182,4
-1005_30,3918,4
-1006_21,912,3
-1006_23,201,2
-1006_25,3255,4
-1006_27,330,3
-1006_29,975,4
-1007_21,525,3
-1007_23,306,2
-1007_24,1794,4
-1007_29,1731,4
-1007_30,4779,4
+video_id,num_frames,num_phases,unique_phases
+0002_21,561,3,"['unknown', '2 arms placing', '1 arm placing']"
+0002_22,465,3,"['unknown', 'pull through', 'pull off']"
+0002_24,2073,4,"['unknown', 'suture pick up', 'suture tie', 'suture pull through']"
+0002_29_X28,1155,4,"['unknown', 'suture pick up', 'suture tie', 'suture pull through']"
+0003_21,1059,3,"['unknown', '2 arms placing', '1 arm placing']"
+0003_22,600,3,"['unknown', 'pull through', 'pull off']"
+0003_23,330,3,"['unknown', 'placing rings', 'placing rings 2 arms']"
+0003_29,2433,4,"['unknown', 'suture pick up', 'suture tie', 'suture pull through']"
+0004_21,780,3,"['unknown', '1 arm placing', '2 arms placing']"
+0004_22,609,3,"['unknown', 'pull through', 'pull off']"
+0004_23,369,2,"['unknown', 'placing rings']"
+0004_26,879,3,"['unknown', '2 arms placing', '1 arm placing']"
+1000_21,486,3,"['unknown', '1 arm placing', '2 arms placing']"
+1000_26_X25,321,3,"['unknown', '2 arms placing', '1 arm placing']"
+1000_28_X27,192,2,"['unknown', 'placing rings 2 arms']"
+1002_30,4344,4,"['unknown', 'uva pick up', 'uva pull through', 'uva tie']"
+1003_26,477,3,"['unknown', '2 arms placing', '1 arm placing']"
+1004_23,213,2,"['unknown', 'placing rings 2 arms']"
+1004_28_X27,315,2,"['unknown', 'placing rings 2 arms']"
+1005_30,3918,4,"['unknown', 'uva pick up', 'uva pull through', 'uva tie']"
+1006_21,912,3,"['unknown', '2 arms placing', '1 arm placing']"
+1006_22,342,3,"['unknown', 'pull through', 'pull off']"
+1006_23,201,2,"['unknown', 'placing rings 2 arms']"
+1006_26,348,3,"['unknown', '2 arms placing', '1 arm placing']"
+1006_29,975,4,"['unknown', 'suture pick up', 'suture tie', 'suture pull through']"
+1006_30,4566,4,"['unknown', 'uva pick up', 'uva pull through', 'uva tie']"
+1007_22,471,3,"['unknown', 'pull through', 'pull off']"
+1007_23,306,2,"['unknown', 'placing rings 2 arms']"
+1007_24,1794,4,"['unknown', 'suture pick up', 'suture tie', 'suture pull through']"
+1007_28,231,2,"['unknown', 'placing rings 2 arms']"
+1007_30,4779,4,"['unknown', 'uva pick up', 'uva pull through', 'uva tie']"
