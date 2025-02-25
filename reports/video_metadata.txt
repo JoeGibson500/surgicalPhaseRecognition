@@ -1,0 +1,344 @@
+Extracting 0002_Task21.mkv data ...
+  Duration: 00:01:33.53, start: 0.000000, bitrate: 352 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 0002_Task22.mkv data ...
+  Duration: 00:01:17.51, start: 0.000000, bitrate: 354 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 0002_Task23.mkv data ...
+  Duration: 00:00:51.49, start: 0.000000, bitrate: 327 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 0002_Task24.mkv data ...
+  Duration: 00:05:45.78, start: 0.000000, bitrate: 295 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 0002_Task25_X29.mkv data ...
+  Duration: 00:09:34.01, start: 0.000000, bitrate: 303 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 0002_Task26_X25.mkv data ...
+  Duration: 00:00:40.98, start: 0.000000, bitrate: 357 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 0002_Task27_X26.mkv data ...
+  Duration: 00:01:01.00, start: 0.000000, bitrate: 387 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 0002_Task28_X27.mkv data ...
+  Duration: 00:00:39.98, start: 0.000000, bitrate: 338 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 0002_Task29_X28.mkv data ...
+  Duration: 00:03:12.63, start: 0.000000, bitrate: 283 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 0002_Task30.mkv data ...
+  Duration: 00:12:34.19, start: 0.000000, bitrate: 342 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 0003_21.mkv data ...
+  Duration: 00:02:56.61, start: 0.000000, bitrate: 140 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 0003_22.mkv data ...
+  Duration: 00:01:40.04, start: 0.000000, bitrate: 184 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 0003_23.mkv data ...
+  Duration: 00:00:54.99, start: 0.000000, bitrate: 143 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 0003_24.mkv data ...
+  Duration: 00:08:21.44, start: 0.000000, bitrate: 244 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 0003_27.mkv data ...
+  Duration: 00:01:40.04, start: 0.000000, bitrate: 190 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 0003_28.mkv data ...
+  Duration: 00:00:38.47, start: 0.000000, bitrate: 180 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 0003_29.mkv data ...
+  Duration: 00:06:45.84, start: 0.000000, bitrate: 258 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 0004_21.mkv data ...
+  Duration: 00:02:10.07, start: 0.000000, bitrate: 251 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 0004_22.mkv data ...
+  Duration: 00:01:41.54, start: 0.000000, bitrate: 216 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 0004_23.mkv data ...
+  Duration: 00:01:01.50, start: 0.000000, bitrate: 211 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 0004_24.mkv data ...
+  Duration: 00:09:29.00, start: 0.000000, bitrate: 282 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 0004_26.mkv data ...
+  Duration: 00:02:26.58, start: 0.000000, bitrate: 256 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 0004_27.mkv data ...
+  Duration: 00:02:15.07, start: 0.000000, bitrate: 210 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 0004_28.mkv data ...
+  Duration: 00:01:23.52, start: 0.000000, bitrate: 173 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 0004_29.mkv data ...
+  Duration: 00:10:22.06, start: 0.000000, bitrate: 297 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1000_Task21.mkv data ...
+  Duration: 00:01:21.02, start: 0.000000, bitrate: 292 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1000_Task22.mkv data ...
+  Duration: 00:00:51.49, start: 0.000000, bitrate: 390 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1000_Task23.mkv data ...
+  Duration: 00:00:34.97, start: 0.000000, bitrate: 354 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1000_Task24.mkv data ...
+  Duration: 00:02:00.56, start: 0.000000, bitrate: 384 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1000_Task25_X29.mkv data ...
+  Duration: 00:05:29.27, start: 0.000000, bitrate: 435 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1000_Task26_X25.mkv data ...
+  Duration: 00:00:53.49, start: 0.000000, bitrate: 339 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1000_Task27_X26.mkv data ...
+  Duration: 00:00:32.87, start: 0.000000, bitrate: 370 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1000_Task28_X27.mkv data ...
+  Duration: 00:00:31.97, start: 0.000000, bitrate: 295 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1000_Task29_X28.mkv data ...
+  Duration: 00:01:51.55, start: 0.000000, bitrate: 287 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1000_Task30.mkv data ...
+  Duration: 00:05:27.26, start: 0.000000, bitrate: 393 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1002_Task21.mkv data ...
+  Duration: 00:01:03.50, start: 0.000000, bitrate: 303 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1002_Task22.mkv data ...
+  Duration: 00:00:58.49, start: 0.000000, bitrate: 402 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1002_Task23.mkv data ...
+  Duration: 00:00:52.99, start: 0.000000, bitrate: 368 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1002_Task24.mkv data ...
+  Duration: 00:04:59.74, start: 0.000000, bitrate: 395 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1002_Task26_X25.mkv data ...
+  Duration: 00:01:04.00, start: 0.000000, bitrate: 507 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1002_Task27_X26.mkv data ...
+  Duration: 00:01:00.50, start: 0.000000, bitrate: 402 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1002_Task28_X27.mkv data ...
+  Duration: 00:00:28.46, start: 0.000000, bitrate: 332 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1002_Task29_X28.mkv data ...
+  Duration: 00:04:41.22, start: 0.000000, bitrate: 343 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1002_Task30.mkv data ...
+  Duration: 00:12:04.66, start: 0.000000, bitrate: 391 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1003_21.mkv data ...
+  Duration: 00:01:11.01, start: 0.000000, bitrate: 287 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1003_22.mkv data ...
+  Duration: 00:00:44.48, start: 0.000000, bitrate: 365 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1003_23.mkv data ...
+  Duration: 00:00:37.97, start: 0.000000, bitrate: 268 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1003_24.mkv data ...
+  Duration: 00:02:50.11, start: 0.000000, bitrate: 324 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1003_25.mkv data ...
+  Duration: 00:05:45.78, start: 0.000000, bitrate: 335 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1003_26.mkv data ...
+  Duration: 00:01:19.52, start: 0.000000, bitrate: 235 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1003_27.mkv data ...
+  Duration: 00:01:25.52, start: 0.000000, bitrate: 238 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1003_28.mkv data ...
+  Duration: 00:00:25.96, start: 0.000000, bitrate: 192 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1003_29.mkv data ...
+  Duration: 00:03:39.16, start: 0.000000, bitrate: 321 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1003_30.mkv data ...
+  Duration: 00:10:07.04, start: 0.000000, bitrate: 156 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1004_Task21.mkv data ...
+  Duration: 00:01:28.02, start: 0.000000, bitrate: 221 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1004_Task22.mkv data ...
+  Duration: 00:01:31.53, start: 0.000000, bitrate: 228 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1004_Task23.mkv data ...
+  Duration: 00:00:35.47, start: 0.000000, bitrate: 210 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1004_Task24.mkv data ...
+  Duration: 00:05:31.77, start: 0.000000, bitrate: 347 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1004_Task26_X25.mkv data ...
+  Duration: 00:01:25.02, start: 0.000000, bitrate: 304 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1004_Task27_X26.mkv data ...
+  Duration: 00:01:36.53, start: 0.000000, bitrate: 294 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1004_Task28_X27.mkv data ...
+  Duration: 00:00:52.49, start: 0.000000, bitrate: 265 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1004_Task29_X28.mkv data ...
+  Duration: 00:05:52.79, start: 0.000000, bitrate: 318 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1004_Task30.mkv data ...
+  Duration: 00:08:29.95, start: 0.000000, bitrate: 352 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1004_Task31.mkv data ...
+  Duration: 00:11:37.63, start: 0.000000, bitrate: 406 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1005_24.mkv data ...
+  Duration: 00:03:45.66, start: 0.000000, bitrate: 341 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1005_25.mkv data ...
+  Duration: 00:13:12.23, start: 0.000000, bitrate: 330 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1005_30.mkv data ...
+  Duration: 00:10:53.59, start: 0.000000, bitrate: 327 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1006_Task21.mkv data ...
+  Duration: 00:02:32.09, start: 0.000000, bitrate: 277 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1006_Task22.mkv data ...
+  Duration: 00:00:56.99, start: 0.000000, bitrate: 348 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1006_Task23.mkv data ...
+  Duration: 00:00:33.47, start: 0.000000, bitrate: 321 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1006_Task24.mkv data ...
+  Duration: 00:03:22.14, start: 0.000000, bitrate: 444 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1006_Task25.mkv data ...
+  Duration: 00:09:02.98, start: 0.000000, bitrate: 426 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1006_Task26.mkv data ...
+  Duration: 00:00:57.99, start: 0.000000, bitrate: 431 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1006_Task27.mkv data ...
+  Duration: 00:00:54.99, start: 0.000000, bitrate: 309 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1006_Task28.mkv data ...
+  Duration: 00:00:30.97, start: 0.000000, bitrate: 239 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1006_Task29.mkv data ...
+  Duration: 00:02:42.60, start: 0.000000, bitrate: 422 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1006_Task30.mkv data ...
+  Duration: 00:12:41.70, start: 0.000000, bitrate: 365 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1007_21.mkv data ...
+  Duration: 00:01:27.52, start: 0.000000, bitrate: 253 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1007_22.mkv data ...
+  Duration: 00:01:18.51, start: 0.000000, bitrate: 282 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1007_23.mkv data ...
+  Duration: 00:00:50.99, start: 0.000000, bitrate: 261 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1007_24.mkv data ...
+  Duration: 00:04:59.24, start: 0.000000, bitrate: 301 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1007_26.mkv data ...
+  Duration: 00:01:25.02, start: 0.000000, bitrate: 402 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1007_27.mkv data ...
+  Duration: 00:01:00.00, start: 0.000000, bitrate: 368 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1007_28.mkv data ...
+  Duration: 00:00:38.47, start: 0.000000, bitrate: 356 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1007_29.mkv data ...
+  Duration: 00:04:48.72, start: 0.000000, bitrate: 426 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
+Extracting 1007_30.mkv data ...
+  Duration: 00:13:17.23, start: 0.000000, bitrate: 414 kb/s
+  Stream #0:0: Video: h264 (High), yuv420p(progressive), 480x320 [SAR 8:9 DAR 4:3], SAR 427:480 DAR 427:320, 29.97 fps, 29.97 tbr, 1k tbn (default)
+  Stream #0:1: Audio: vorbis, 48000 Hz, stereo, fltp (default)
