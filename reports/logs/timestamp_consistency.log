@@ -1,0 +1,24 @@
+=== Missing and Extra Timestamp Files Check ===
+All videos have a corresponding timestamp file .
+All timestamp files have a corresponding video file.
+
+=== Column Consistency Check ===
+All timestamp files have the correct columns.
+
+=== Unique Phase Labels Extracted ===
+- 1 arm placing
+- 1 arm placing (attempt)
+- 2 arms placing
+- 2 arms placing (attempt)
+- placing rings
+- placing rings 2 arms
+- pull off
+- pull off (partial)
+- pull through
+- suture pick up
+- suture pull through
+- suture tie
+- suture tie (attempt)
+- uva pick up
+- uva pull through
+- uva tie
