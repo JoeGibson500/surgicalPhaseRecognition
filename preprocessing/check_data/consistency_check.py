@@ -60,7 +60,7 @@ def extract_unique_phase_labels():
     all_phases = set()
 
     for file in os.listdir(timestamp_dir):
-        if file.endswith("_Clip_List.xlsx"):
+        if file.endswith(".xlsx"):
             file_path = os.path.join(timestamp_dir, file)
             df = pd.read_excel(file_path)
 

@@ -16,3 +16,12 @@ for directory in directories:
             
             os.rename(file_path, new_path)  # Rename the file
             print(f"Renamed: {file} -> {new_name}")
+            
+        if "_Clip_List" in file:
+            
+            new_name = file.replace("_Clip_List", "")  # Remove "_Clip_List"
+            new_path = os.path.join(directory, new_name)  # New file path
+            
+            os.rename(file_path, new_path)  # Rename the file
+            print(f"Renamed: {file} -> {new_name}")
+            

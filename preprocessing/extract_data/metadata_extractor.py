@@ -36,7 +36,7 @@ def extract_video_metadata(video_path):
 
 def extract_timestamp_metadata(video_name):
     """Extracts metadata related to surgical phases from the corresponding timestamp file."""
-    timestamp_file = os.path.join(TIMESTAMP_DIR, f"{video_name}_Clip_List.xlsx")
+    timestamp_file = os.path.join(TIMESTAMP_DIR, f"{video_name}.xlsx")
 
     if not os.path.exists(timestamp_file):
         print(f"Timestamp file missing for: {video_name}")
@@ -71,7 +71,7 @@ def process_all_videos(video_dir):
     video_metadata = []
 
     for video in os.listdir(video_dir):
-        if video.endswith((".mkv", ".mp4", ".avi", ".mov", ".flv")):
+        if video.endswith((".mkv")):
             video_name = os.path.splitext(video)[0]
             video_path = os.path.join(video_dir, video)
 
