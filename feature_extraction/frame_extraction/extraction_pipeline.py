@@ -29,23 +29,23 @@ def run_extraction_pipeline():
     args = parser.parse_args()
     
         
-    # Step 1: Extract Frames
-    logging.info("Starting Frame Extraction...\n")
-    manager = FrameExtractionManager(
-        video_folder=args.video_folder,
-        timestamp_folder=args.timestamp_folder,
-        output_folder=args.output_folder,
-        num_workers=args.num_workers,
-        frame_skip=args.frame_skip
-    )
-    manager.run()
-    logging.info("Frame Extraction Completed.")
+    # # Step 1: Extract Frames
+    # logging.info("Starting Frame Extraction...\n")
+    # manager = FrameExtractionManager(
+    #     video_folder=args.video_folder,
+    #     timestamp_folder=args.timestamp_folder,
+    #     output_folder=args.output_folder,
+    #     num_workers=args.num_workers,
+    #     frame_skip=args.frame_skip
+    # )
+    # manager.run()
+    # logging.info("Frame Extraction Completed.")
 
     # Step 2: Generate Metadata CSV 
     if args.generate_metadata:
         logging.info("Generating Metadata CSV...\n")
         metadata_generator = MetadataGenerator(frame_folder=args.output_folder)
-        metadata_generator.generate_metadata()
+        metadata_generator.extract_frame_metadata()
         logging.info("Metadata CSV Generated.\n")
         
         

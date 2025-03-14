@@ -22,7 +22,7 @@ for video in os.listdir(FRAMES_FOLDER):
         file_path = os.path.join(video_path, filename)
 
         # Skip non-image files
-        if not filename.lower().endswith((".jpg", ".png")):
+        if not filename.lower().endswith((".jpg")):
             continue
 
         # Extract phase name (everything after the second underscore)
@@ -39,5 +39,3 @@ for video in os.listdir(FRAMES_FOLDER):
         if new_file_path != file_path:
             os.rename(file_path, new_file_path)
             print(f"Renamed: {filename} → {new_filename}")
-
-print("Filename cleaning completed!")

@@ -1,49 +1,214 @@
+# import pandas as pd
+# from sklearn.model_selection import train_test_split
+# import logging
+
+# logging.basicConfig(level=logging.INFO)
+
+# class DatasetSplitter:
+    
+#     def __init__(self, metadata_path, output_folder="feature_extraction/split_dataset/csv_splits/"):
+#         self.metadata_path = metadata_path
+#         self.output_folder = output_folder
+#         self.df = None
+#         self.train_videos = []
+#         self.val_videos = []
+#         self.test_videos = []
+
+#     def load_metadata(self):
+#         """Load metadata from CSV file."""
+#         self.df = pd.read_csv(self.metadata_path)
+#         logging.info(f"Loaded metadata from {self.metadata_path}. Total frames: {len(self.df)}")
+
+#     def ensure_phase_coverage(self):
+#         """Ensure all phases appear in each split by first distributing videos with unique phases."""
+#         video_phase_map = self.df.groupby("video_id")["phase"].apply(set).to_dict()
+#         phase_video_map = {}
+        
+#         # Create a mapping of each phase to videos containing it
+#         for video, phases in video_phase_map.items():
+#             for phase in phases:
+#                 if phase not in phase_video_map:
+#                     phase_video_map[phase] = []
+#                 phase_video_map[phase].append(video)
+
+#         # Assign one video per phase to each split
+#         assigned_videos = set()
+#         for phase, videos in phase_video_map.items():
+#             if len(videos) >= 3:
+#                 self.train_videos.append(videos[0])
+#                 self.val_videos.append(videos[1])
+#                 self.test_videos.append(videos[2])
+#                 assigned_videos.update(videos[:3])
+#             elif len(videos) == 2:
+#                 self.train_videos.append(videos[0])
+#                 self.val_videos.append(videos[1])
+#                 self.test_videos.append(videos[0])  # Duplicate one if needed
+#                 assigned_videos.update(videos)
+#             elif len(videos) == 1:
+#                 self.train_videos.append(videos[0])
+#                 self.val_videos.append(videos[0])
+#                 self.test_videos.append(videos[0])
+#                 assigned_videos.add(videos[0])
+        
+#         logging.info(f"Initial Phase Coverage Assigned. Train: {len(self.train_videos)}, Val: {len(self.val_videos)}, Test: {len(self.test_videos)}")
+
+#         return assigned_videos
+
+#     def balance_frame_distribution(self, assigned_videos):
+#         """Distribute remaining videos while balancing frame counts."""
+#         video_frame_counts = self.df.groupby("video_id")["frame_number"].count()
+#         remaining_videos = [v for v in video_frame_counts.index if v not in assigned_videos]
+        
+#         # Sort videos by frame count (longest first)
+#         remaining_videos = sorted(remaining_videos, key=lambda v: video_frame_counts[v], reverse=True)
+
+#         train_frames, val_frames, test_frames = sum(video_frame_counts[v] for v in self.train_videos), \
+#                                                 sum(video_frame_counts[v] for v in self.val_videos), \
+#                                                 sum(video_frame_counts[v] for v in self.test_videos)
+
+#         for video in remaining_videos:
+#             video_frames = video_frame_counts[video]
+
+#             # Assign to the split with the lowest total frame count
+#             if train_frames <= val_frames and train_frames <= test_frames:
+#                 self.train_videos.append(video)
+#                 train_frames += video_frames
+#             elif val_frames <= test_frames:
+#                 self.val_videos.append(video)
+#                 val_frames += video_frames
+#             else:
+#                 self.test_videos.append(video)
+#                 test_frames += video_frames
+
+#         logging.info(f"Balanced Frame Distribution. Train Frames: {train_frames}, Val Frames: {val_frames}, Test Frames: {test_frames}")
+
+#     def save_splits(self):
+#         """Save final train, validation, and test splits to CSV."""
+#         train_df = self.df[self.df["video_id"].isin(self.train_videos)]
+#         val_df = self.df[self.df["video_id"].isin(self.val_videos)]
+#         test_df = self.df[self.df["video_id"].isin(self.test_videos)]
+
+#         train_df.to_csv(f"{self.output_folder}/train_split.csv", index=False)
+#         val_df.to_csv(f"{self.output_folder}/val_split.csv", index=False)
+#         test_df.to_csv(f"{self.output_folder}/test_split.csv", index=False)
+
+#         logging.info("Final train/val/test splits saved successfully.")
+
+#     def run(self):
+#         """Main pipeline to execute the dataset splitting."""
+#         self.load_metadata()
+#         assigned_videos = self.ensure_phase_coverage()
+#         self.balance_frame_distribution(assigned_videos)
+#         self.save_splits()
+
+
+# if __name__ == "__main__":
+#     splitter = DatasetSplitter(metadata_path="data/frames/frames_metadata.csv")
+#     splitter.run()
 import pandas as pd
 from sklearn.model_selection import train_test_split
+import logging
 
-# Load metadata
-df = pd.read_csv("data/frames/frames_metadata.csv")
+logging.basicConfig(level=logging.INFO)
 
-# Get unique videos and their corresponding phases
-video_phase_map = df.groupby("video_id")["phase"].apply(set).to_dict()
+class DatasetSplitter:
+    
+    def __init__(self, metadata_path, output_folder="feature_extraction/split_dataset/csv_splits/"):
+        self.metadata_path = metadata_path
+        self.output_folder = output_folder
+        self.df = None
+        self.train_videos = []
+        self.val_videos = []
+        self.test_videos = []
 
-# Convert video_id to DataFrame for stratified splitting
-video_df = pd.DataFrame({"video_id": list(video_phase_map.keys()), "phases": list(video_phase_map.values())})
+    def load_metadata(self):
+        """Load metadata from CSV file."""
+        self.df = pd.read_csv(self.metadata_path)
+        logging.info(f"Loaded metadata from {self.metadata_path}. Total frames: {len(self.df)}")
 
-# Initial split (70% train, 30% temp)
-train_videos, temp_videos = train_test_split(video_df["video_id"], test_size=0.3, random_state=42)
+    def ensure_phase_coverage(self):
+        """Ensure all phases appear in each split by first distributing videos with unique phases."""
+        video_phase_map = self.df.groupby("video_id")["phase"].apply(set).to_dict()
+        phase_video_map = {}
+        
+        # Create a mapping of each phase to videos containing it
+        for video, phases in video_phase_map.items():
+            for phase in phases:
+                if phase not in phase_video_map:
+                    phase_video_map[phase] = []
+                phase_video_map[phase].append(video)
 
-# Split temp further into validation (15%) and test (15%)
-val_videos, test_videos = train_test_split(temp_videos, test_size=0.5, random_state=42)
+        # Assign one video per phase to each split
+        assigned_videos = set()
+        for phase, videos in phase_video_map.items():
+            if len(videos) >= 3:
+                self.train_videos.append(videos[0])
+                self.val_videos.append(videos[1])
+                self.test_videos.append(videos[2])
+                assigned_videos.update(videos[:3])
+            elif len(videos) == 2:
+                self.train_videos.append(videos[0])
+                self.val_videos.append(videos[1])
+                self.test_videos.append(videos[0])  # Duplicate one if needed
+                assigned_videos.update(videos)
+            elif len(videos) == 1:
+                self.train_videos.append(videos[0])
+                self.val_videos.append(videos[0])
+                self.test_videos.append(videos[0])
+                assigned_videos.add(videos[0])
+        
+        logging.info(f"Initial Phase Coverage Assigned. Train: {len(self.train_videos)}, Val: {len(self.val_videos)}, Test: {len(self.test_videos)}")
 
-# Ensure every phase exists in all splits
-def check_phase_coverage(video_list, df):
-    present_phases = set(df[df["video_id"].isin(video_list)]["phase"])
-    return present_phases
+        return assigned_videos
 
-train_phases = check_phase_coverage(train_videos, df)
-val_phases = check_phase_coverage(val_videos, df)
-test_phases = check_phase_coverage(test_videos, df)
+    def balance_frame_distribution(self, assigned_videos):
+        """Distribute remaining videos while balancing frame counts."""
+        video_frame_counts = self.df.groupby("video_id")["frame_number"].count()
+        remaining_videos = [v for v in video_frame_counts.index if v not in assigned_videos]
+        
+        # Sort videos by frame count (longest first)
+        remaining_videos = sorted(remaining_videos, key=lambda v: video_frame_counts[v], reverse=True)
 
-missing_val_phases = train_phases - val_phases
-missing_test_phases = train_phases - test_phases
+        train_frames, val_frames, test_frames = sum(video_frame_counts[v] for v in self.train_videos), \
+                                                sum(video_frame_counts[v] for v in self.val_videos), \
+                                                sum(video_frame_counts[v] for v in self.test_videos)
 
-# Fix missing phases by moving a few examples to val/test
-for phase in missing_val_phases:
-    sample_video = df[df["phase"] == phase]["video_id"].iloc[0]  # Get a video with the missing phase
-    val_videos = pd.concat([val_videos, pd.Series([sample_video])], ignore_index=True)
+        for video in remaining_videos:
+            video_frames = video_frame_counts[video]
 
-for phase in missing_test_phases:
-    sample_video = df[df["phase"] == phase]["video_id"].iloc[0]  # Get a video with the missing phase
-    test_videos = pd.concat([test_videos, pd.Series([sample_video])], ignore_index=True)
+            # Assign to the split with the lowest total frame count
+            if train_frames <= val_frames and train_frames <= test_frames:
+                self.train_videos.append(video)
+                train_frames += video_frames
+            elif val_frames <= test_frames:
+                self.val_videos.append(video)
+                val_frames += video_frames
+            else:
+                self.test_videos.append(video)
+                test_frames += video_frames
 
-# Save final splits
-train_df = df[df["video_id"].isin(train_videos)]
-val_df = df[df["video_id"].isin(val_videos)]
-test_df = df[df["video_id"].isin(test_videos)]
+        logging.info(f"Balanced Frame Distribution. Train Frames: {train_frames}, Val Frames: {val_frames}, Test Frames: {test_frames}")
 
-train_df.to_csv("feature_extraction/split_dataset/csv_splits/train_split.csv", index=False)
-val_df.to_csv("feature_extraction/split_dataset/csv_splits/val_split.csv", index=False)
-test_df.to_csv("feature_extraction/split_dataset/csv_splits/test_split.csv", index=False)
+    def save_splits(self):
+        """Save final train, validation, and test splits to CSV."""
+        train_df = self.df[self.df["video_id"].isin(self.train_videos)]
+        val_df = self.df[self.df["video_id"].isin(self.val_videos)]
+        test_df = self.df[self.df["video_id"].isin(self.test_videos)]
 
-print("Final train/val/test splits created successfully.")
+        train_df.to_csv(f"{self.output_folder}/train_split.csv", index=False)
+        val_df.to_csv(f"{self.output_folder}/val_split.csv", index=False)
+        test_df.to_csv(f"{self.output_folder}/test_split.csv", index=False)
+
+        logging.info("Final train/val/test splits saved successfully.")
+
+    def run(self):
+        """Main pipeline to execute the dataset splitting."""
+        self.load_metadata()
+        assigned_videos = self.ensure_phase_coverage()
+        self.balance_frame_distribution(assigned_videos)
+        self.save_splits()
+
+
+if __name__ == "__main__":
+    splitter = DatasetSplitter(metadata_path="data/frames/frames_metadata.csv")
+    splitter.run()
