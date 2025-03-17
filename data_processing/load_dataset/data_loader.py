@@ -63,24 +63,10 @@ class SurgicalPhaseDataset(Dataset):
             image = self.transform(image)
 
         # Extract tensor stats
-        tensor_min = image.min().item()
-        tensor_max = image.max().item()
-        tensor_mean = image.mean().item()
-        tensor_std = image.std().item()
-
-        # Print useful information
-        print(f"---- Image Information ----")
-        print(f"File Path       : {img_path}")
-        print(f"Original Size   : {original_size} (width x height)")
-        print(f"Image Mode      : {image_mode}")
-        print(f"Transformed Size: {image.shape}")  # Tensor shape (C, H, W)
-        print(f"Label (Int)     : {label}")
-        print(f"Label (Name)    : {label_name}")
-        print(f"Tensor Min      : {tensor_min:.4f}")
-        print(f"Tensor Max      : {tensor_max:.4f}")
-        print(f"Tensor Mean     : {tensor_mean:.4f}")
-        print(f"Tensor Std      : {tensor_std:.4f}")
-        print(f"--------------------------\n")
+        # tensor_min = image.min().item()
+        # tensor_max = image.max().item()
+        # tensor_mean = image.mean().item()
+        # tensor_std = image.std().item()
 
         return image, torch.tensor(label, dtype=torch.long)
 
@@ -92,12 +78,3 @@ train_transforms = transforms.Compose([
     transforms.ToTensor(),  # Convert image to tensor
     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),  # Normalize (ImageNet values)
 ])
-
-if __name__ == "__main__":
-    dataset = SurgicalPhaseDataset(csv_file="data/splits/train_split.csv", 
-                                   image_dir="/vol/scratch/SoC/misc/2024/sc22jg/frames/",
-                                   transform=train_transforms)
-
-    # Load a sample
-    image, label = dataset[0]
-    print(f"Image shape: {image.shape}, Label: {label}")
