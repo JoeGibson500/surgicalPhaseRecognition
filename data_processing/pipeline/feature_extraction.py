@@ -4,64 +4,82 @@ from torch.utils.data import DataLoader
 import sys
 import os
 
-# Ensure correct import paths
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../..")))
 
-from data_processing.load_dataset.data_loader import SurgicalPhaseDataset, train_transforms
+from data_processing.pipeline.dataset import SurgicalPhaseDataset, train_transforms
 from models.cnn.cnn import CNNFeatureExtractor  
 
-# Define dataset paths
-CSV_FILE = "data/splits/train_split.csv"
-IMAGE_DIR = "/vol/scratch/SoC/misc/2024/sc22jg/frames/"
-FEATURE_SAVE_PATH = "data/features/"
+class FeatureExtractor:
+    def __init__(self, data_split, image_dir, feature_save_path, batch_size=32, num_workers=4):
+        """
+        Initializes the feature extractor.
+        
+        Args:
+            data_split (str): Path to the CSV file containing dataset information.
+            image_dir (str): Path to the directory containing images.
+            feature_save_path (str): Path to save extracted features.
+            batch_size (int): Number of images to process per batch.
+            num_workers (int): Number of workers for DataLoader.
+        """
+        self.data_split = data_split
+        self.image_dir = image_dir
+        self.feature_save_path = feature_save_path
+        self.batch_size = batch_size
+        self.num_workers = num_workers
+        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-# Ensure save directory exists
-os.makedirs(FEATURE_SAVE_PATH, exist_ok=True)
+        # Ensure save directory exists
+        os.makedirs(self.feature_save_path, exist_ok=True)
 
-# Create dataset
-dataset = SurgicalPhaseDataset(csv_file=CSV_FILE, image_dir=IMAGE_DIR, transform=train_transforms)
+        # Initialize dataset and DataLoader
+        self.dataset = SurgicalPhaseDataset(data_split=self.data_split, image_dir=self.image_dir, transform=train_transforms)
+        self.dataloader = DataLoader(self.dataset, batch_size=self.batch_size, shuffle=False, num_workers=self.num_workers)
 
-# Create DataLoader for batch processing
-batch_size = 32 
-dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=False, num_workers=4)
+        # Load the CNN model
+        self.model = CNNFeatureExtractor().to(self.device)
+        self.model.eval()  # Set model to evaluation mode
 
-print(f"Dataset Loaded: {len(dataset)} frames available.")
+        print(f"Dataset Loaded: {len(self.dataset)} frames available.")
 
-# Load the CNN feature extractor
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-model = CNNFeatureExtractor().to(device)  # CNN outputs spatial features
-model.eval()  # Set to evaluation mode
+    def extract_features(self):
+        """
+        Extracts features from the dataset using the CNN model and saves them.
+        """
+        features_list = []
+        labels_list = []
+        frame_names_list = []
 
-# Storage for features, labels, and frame names
-features_list = []
-labels_list = []
-frame_names_list = []  # Store frame file paths
+        with torch.no_grad():
+            for batch_idx, (images, labels) in enumerate(self.dataloader):
+                images = images.to(self.device)
+                features = self.model(images)  # Extract features
 
-# Extract features
-with torch.no_grad():  
-    for batch_idx, (images, labels) in enumerate(dataloader):
-        images = images.to(device)
+                features_list.append(features.cpu().numpy())
+                labels_list.append(labels.cpu().numpy())
 
-        features = model(images) 
+                # Get corresponding frame names
+                start_idx = batch_idx * self.dataloader.batch_size
+                end_idx = start_idx + len(labels)
+                frame_names_list.extend(self.dataset.data.iloc[start_idx:end_idx]["file_path"].tolist())
 
-        features_list.append(features.cpu().numpy())
-        labels_list.append(labels.cpu().numpy())
+        # Convert lists to numpy arrays
+        features_array = np.vstack(features_list)
+        labels_array = np.concatenate(labels_list)
+        frame_names_array = np.array(frame_names_list)
 
-        start_idx = batch_idx * dataloader.batch_size
-        end_idx = start_idx + len(labels)
-        frame_names_list.extend(dataset.data.iloc[start_idx:end_idx]["file_path"].tolist())
+        # Save extracted features
+        self.save_features(features_array, labels_array, frame_names_array)
+
+    def save_features(self, features_array, labels_array, frame_names_array):
+        """
+        Saves extracted features, labels, and frame names to .npy files.
+        """
+        np.save(os.path.join(self.feature_save_path, "cnn_training_features.npy"), features_array)
+        np.save(os.path.join(self.feature_save_path, "cnn_training_labels.npy"), labels_array)
+        np.save(os.path.join(self.feature_save_path, "cnn_training_frame_names.npy"), frame_names_array)
+
+        print(f"Saved CNN features to 'cnn_training_features.npy' (Shape: {features_array.shape})")
+        print(f"Saved labels to 'cnn_training_labels.npy' (Shape: {labels_array.shape})")
+        print(f"Saved frame names to 'cnn_training_frame_names.npy' (Shape: {frame_names_array.shape})")
 
 
-# Convert lists to numpy arrays
-features_array = np.vstack(features_list)  
-labels_array = np.concatenate(labels_list) 
-frame_names_array = np.array(frame_names_list) 
-
-# Save extracted features for later
-np.save(os.path.join(FEATURE_SAVE_PATH, "cnn_features.npy"), features_array)
-np.save(os.path.join(FEATURE_SAVE_PATH, "cnn_labels.npy"), labels_array)
-np.save(os.path.join(FEATURE_SAVE_PATH, "cnn_frame_names.npy"), frame_names_array)
-
-print(f"Saved CNN features to 'cnn_features.npy' (Shape: {features_array.shape})")
-print(f"Saved labels to 'cnn_labels.npy' (Shape: {labels_array.shape})")
-print(f"Saved frame names to 'cnn_frame_names.npy' (Shape: {frame_names_array.shape})")

@@ -1,36 +1,30 @@
 import os
 import pandas as pd
 import torch
+import sys
 from torch.utils.data import Dataset
 from torchvision import transforms
 from PIL import Image
 
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")))
+from utils.phase_utils import get_phase_to_index
+
 # Manual phase-to-index mapping
-PHASE_TO_INDEX = {
-    "unknown": 0,
-    "pull through": 1,
-    "placing rings": 2,
-    "suture pick up": 3,
-    "suture pull through": 4,
-    "suture tie": 5,
-    "uva pick up": 6,
-    "uva pull through": 7,
-    "uva tie": 8,
-    "placing rings 2 arms": 9,
-    "1 arm placing": 10,
-    "2 arms placing": 11,
-    "pull off": 12
-}
+PHASE_TO_INDEX = get_phase_to_index()
+
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")))
+from utils.phase_utils import clean_phase_name
 
 class SurgicalPhaseDataset(Dataset):
-    def __init__(self, csv_file, image_dir, transform=None):
+    def __init__(self, data_split, image_dir, transform=None):
         """
         Args:
             csv_file (str): Path to the CSV file containing image paths and labels.
             image_dir (str): Root directory containing image frames.
             transform (callable, optional): Optional transform to be applied on a sample.
         """
-        self.data = pd.read_csv(csv_file)
+        self.data = pd.read_csv(data_split)
         self.image_dir = image_dir
         self.transform = transform
 
@@ -61,12 +55,6 @@ class SurgicalPhaseDataset(Dataset):
         # Apply transformations
         if self.transform:
             image = self.transform(image)
-
-        # Extract tensor stats
-        # tensor_min = image.min().item()
-        # tensor_max = image.max().item()
-        # tensor_mean = image.mean().item()
-        # tensor_std = image.std().item()
 
         return image, torch.tensor(label, dtype=torch.long)
 
