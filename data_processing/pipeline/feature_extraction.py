@@ -10,39 +10,20 @@ from data_processing.pipeline.dataset import FrameDataset, train_transforms
 from models.cnn.cnn import CNNFeatureExtractor  
 
 class FeatureExtractor:
-    def __init__(self,
-                 data_split,
-                 image_dir,
-                 feature_file,
-                 feature_name_file,
-                 feature_label_file,
-                 batch_size=32,
-                 num_workers=4
-                 ):
-        """
-        Initializes the feature extractor.
-        
-        Args:
-            data_split (str): Path to the CSV file containing dataset information.
-            image_dir (str): Path to the directory containing images.
-            feature_save_path (str): Path to save extracted features.
-            batch_size (int): Number of images to process per batch.
-            num_workers (int): Number of workers for DataLoader.
-        """
+    def __init__(self, data_split, image_dir, feature_save_path, batch_size=32, num_workers=4):
+  
         self.data_split = data_split
         self.image_dir = image_dir
+        self.feature_save_path = feature_save_path
         self.batch_size = batch_size
         self.num_workers = num_workers
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-        
-        
-        self.feature_file = feature_file
-        self.feature_name_file = feature_name_file
-        self.feature_label_file = feature_label_file
 
+        # Ensure save directory exists
+        os.makedirs(self.feature_save_path, exist_ok=True)
 
         # Initialize dataset and DataLoader
-        self.dataset = FrameDataset(data_split=self.data_split, image_dir=self.image_dir, transform=train_transforms)
+        self.dataset = SurgicalPhaseDataset(data_split=self.data_split, image_dir=self.image_dir, transform=train_transforms)
         self.dataloader = DataLoader(self.dataset, batch_size=self.batch_size, shuffle=False, num_workers=self.num_workers)
 
         # Load the CNN model
@@ -84,13 +65,12 @@ class FeatureExtractor:
         """
         Saves extracted features, labels, and frame names to .npy files.
         """
+        np.save(os.path.join(self.feature_save_path, "cnn_training_features.npy"), features_array)
+        np.save(os.path.join(self.feature_save_path, "cnn_training_labels.npy"), labels_array)
+        np.save(os.path.join(self.feature_save_path, "cnn_training_frame_names.npy"), frame_names_array)
 
-        np.save(self.feature_file, features_array)
-        np.save(self.feature_label_file, labels_array)
-        np.save(self.feature_name_file, frame_names_array)
-
-        print(f"Saved CNN features to '{self.feature_file}' (Shape: {features_array.shape})")
-        print(f"Saved labels to {self.feature_label_file} (Shape: {labels_array.shape})")
-        print(f"Saved frame names to {self.feature_name_file} (Shape: {frame_names_array.shape})")
+        print(f"Saved CNN features to 'cnn_training_features.npy' (Shape: {features_array.shape})")
+        print(f"Saved labels to 'cnn_training_labels.npy' (Shape: {labels_array.shape})")
+        print(f"Saved frame names to 'cnn_training_frame_names.npy' (Shape: {frame_names_array.shape})")
 
 

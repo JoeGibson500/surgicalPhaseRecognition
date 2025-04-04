@@ -5,7 +5,6 @@ import cv2
 import logging
 from tqdm import tqdm
 
-logging.basicConfig(level=logging.INFO)
 
 class FrameExtractionManager:
     
@@ -65,7 +64,7 @@ class FrameExtractor:
         Extracts frames from a video based on timestamps.
         """
         cap = cv2.VideoCapture(self.video_path)
-        fps = cap.get(cv2.CAP_PROP_FPS) or 30  # Default to 30 FPS if unknown
+        fps = cap.get(cv2.CAP_PROP_FPS) 
         total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
         
         df = pd.read_excel(self.timestamp_file)

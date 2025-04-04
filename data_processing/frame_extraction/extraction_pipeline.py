@@ -1,11 +1,9 @@
 import argparse
 from extract_frames import FrameExtractionManager
 from extract_frames import FrameExtractor
-from extract_metadata import MetadataGenerator
+from extract_metadata import FrameMetadataGenerator
 import logging
 
-
-logging.basicConfig(level=logging.INFO)
 
 def run_extraction_pipeline():
     
@@ -29,24 +27,24 @@ def run_extraction_pipeline():
     args = parser.parse_args()
     
         
-    # # Step 1: Extract Frames
-    # logging.info("Starting Frame Extraction...\n")
-    # manager = FrameExtractionManager(
-    #     video_folder=args.video_folder,
-    #     timestamp_folder=args.timestamp_folder,
-    #     output_folder=args.output_folder,
-    #     num_workers=args.num_workers,
-    #     frame_skip=args.frame_skip
-    # )
-    # manager.run()
-    # logging.info("Frame Extraction Completed.")
+    # Step 1: Extract Frames
+    print("Starting Frame Extraction...\n")
+    manager = FrameExtractionManager(
+        video_folder=args.video_folder,
+        timestamp_folder=args.timestamp_folder,
+        output_folder=args.output_folder,
+        num_workers=args.num_workers,
+        frame_skip=args.frame_skip
+    )
+    manager.run()
+    print("Frame Extraction Completed.")
 
     # Step 2: Generate Metadata CSV 
     if args.generate_metadata:
-        logging.info("Generating Metadata CSV...\n")
-        metadata_generator = MetadataGenerator(frame_folder=args.output_folder)
-        metadata_generator.extract_frame_metadata()
-        logging.info("Metadata CSV Generated.\n")
+        print("Generating Metadata CSV...\n")
+        frame_metadata_generator = FrameMetadataGenerator(frame_folder=args.output_folder)
+        frame_metadata_generator.generate_metadata()
+        print("Metadata CSV Generated.\n")
         
         
 if __name__ == "__main__":

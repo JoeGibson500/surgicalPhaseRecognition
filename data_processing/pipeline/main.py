@@ -1,15 +1,12 @@
 from feature_extraction import FeatureExtractor
 from generate_sequences import VideoSequenceGenerator, PhaseSequenceGenerator
 from dataset import FrameDataset, FeatureDataset
-from trainer import TCNTrainer
+from tcnTrainer import TCNTrainer
 from collections import Counter
 import torch
 import torch.nn as nn
-import torch.optim as optim
-from torch.utils.data import DataLoader
-import pandas as pd
-import os
-from tqdm import tqdm  
+
+
 
 
 # # """
@@ -111,13 +108,15 @@ config = {
     'train_label_dir': TRAIN_LABELS_DIR,
     'val_seq_dir': VAL_SEQUENCES_DIR,
     'val_label_dir': VAL_LABELS_DIR,
-    'batch_size': 20,
-    'lr': 1e-6,
-    'epochs': 120,
-    'patience': 15,
-    'gamma' :  1.9,
-    'beta' : 0.992,
     'model_save_path': BEST_MODEL_PATH,
+    'batch_size': 16,
+    'lr': 1e-6,
+    'epochs': 30,
+    'patience': 150,
+    'gamma' :  2.0,
+    'beta' : 0.9,
+    'loss' : "focal",
+    'sampler' : "weighted-random",
     'phase_names': [
         "pull through", "placing rings", "suture pick up", "suture pull through",
         "suture tie", "uva pick up", "uva pull through", "uva tie",
