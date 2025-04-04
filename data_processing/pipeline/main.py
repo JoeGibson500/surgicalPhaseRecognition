@@ -117,6 +117,17 @@ config = {
     'beta' : 0.9,
     'loss' : "focal",
     'sampler' : "weighted-random",
+    'boost_factors' : {
+        2: 3.5,
+        3: 1.2, 
+        9: 0.7,
+        10: 2.0,
+        11: 0.85,
+        12: 2.0
+    },
+    'log_per_class_freq:' : 10,
+    'plot_confusion_freq:': 15,
+    'plot_tsne_freq': 0, 
     'phase_names': [
         "pull through", "placing rings", "suture pick up", "suture pull through",
         "suture tie", "uva pick up", "uva pull through", "uva tie",

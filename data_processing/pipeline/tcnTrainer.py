@@ -13,7 +13,7 @@ from collections import Counter
 from torch.utils.data import DataLoader, WeightedRandomSampler
 from sklearn.metrics import classification_report, confusion_matrix
 from loss import FocalLoss
-# from loss import ClassBalancedFocalLoss
+from loss import ClassBalancedFocalLoss
 from dataset import FeatureDataset
 from models.tcn.tcn import TCN
 
@@ -27,9 +27,9 @@ class TCNTrainer:
         self._build_model()
         
         self.timestamp = datetime.now().strftime('%Y%m%d-%H%M%S')
-        self.best_model_path = f"reports/models/best_model_{self.timestamp}_loss.pt"
-        self.training_metrics_path = f"reports/visuals/training/curve_{self.timestamp}_{self.config['batch_size']}_{self.config['gamma']}_{self.config['beta']}.png"
-        self.tsne_path = f"reports/visuals/training/tsne.png"
+        # self.best_model_path = f"reports/models/best_model_{self.timestamp}_loss.pt"
+        # self.training_metrics_path = f"reports/visuals/training/curve_{self.timestamp}_{self.config['batch_size']}_{self.config['gamma']}_{self.config['beta']}.png"
+        # self.tsne_path = f"reports/visuals/training/tsne.png"
         
         
     def _prepare_data(self):
@@ -39,50 +39,7 @@ class TCNTrainer:
 
         if self.config['sampler'] == "weighted-random":
             print("Computing class weights...") 
-            
-                
-            # boost_factors = {
-            #     2: 2.5,   
-            #     9: 0.7,
-            #     10: 2.5,   # Moderate boost for '1 arm placing'
-            #     11: 0.8
-                
-            # }
-            
-            # boost_factors = {
-            #     2: 3.5,   # Moderate + boost (was 3.0)
-            #     10: 2.0,  # Slight increase (was 1.5)
-            #     9: 0.6,   # Reduce placing rings 2 arms a bit more
-            #     11: 0.75  # Continue to nudge down 2 arms placing
-            # }
-           
-            # **************
-            # boost_factors = {
-            #     2: 3.2,
-            #     3: 1.2,
-            #     9: 0.7,
-            #     10: 2.0,
-            #     11: 0.85,
-            #     12: 2.0
-            # }
-            
-            boost_factors = {
-                2: 3.5,
-                3: 1.2, 
-                9: 0.7,
-                10: 2.0,
-                11: 0.85,
-                12: 2.0
-            }
-            
-            # boost_factors = {
-            #     2: 4.0,
-            #     9: 1.0,   # Don’t boost it, but don’t penalize it either
-            #     10: 2.5,
-            #     11: 0.75,
-            #     12: 2.0
-            # }
-    
+                        
             sequence_labels = []
             for i in tqdm(range(len(self.train_dataset))):
                 _, label_seq = self.train_dataset[i]
@@ -98,7 +55,7 @@ class TCNTrainer:
             class_weights = {cls: 1.0 / count for cls, count in class_counts.items()}
         
             # Apply boost factors
-            for cls, factor in boost_factors.items():
+            for cls, factor in self.config['boost_factors'].items():
                 if cls in class_weights:
                     class_weights[cls] *= factor
 
@@ -112,8 +69,6 @@ class TCNTrainer:
                 
     
             self.train_loader = DataLoader(self.train_dataset, batch_size=self.config['batch_size'], sampler=self.sampler, num_workers=4)
-            # self.train_loader = DataLoader(self.train_dataset, batch_size=self.config['batch_size'], shuffle=True, num_workers=4)
-
             self.val_loader = DataLoader(self.val_dataset, batch_size=self.config['batch_size'], shuffle=True, num_workers=4) 
 
         elif self.config['sampler'] == "uniform": 
@@ -137,34 +92,24 @@ class TCNTrainer:
         else:
             print(f"Pretrained model not found at {pretrained_path}")
 
-
-        if self.config['loss'] == "focal":
+        # *** Define loss criterion *** 
+        
+        if self.config['loss'] == "focal": 
+            
+            self.criterion = FocalLoss(gamma=self.config['gamma']) 
+            
+        elif self.config['loss'] == "class-balanced-focal":
             
             samples_per_class = [self.class_counts.get(i, 1) for i in range(13)]
-
-            # boost_factors = {
-            #     2: 1.5,  # Class 2 gets 3x weight
-            #     10: 1.5   # Class 10 gets 1.5x weight
-            # }
-
-            # self.criterion = ClassBalancedFocalLoss(
-            #     samples_per_class=samples_per_class,
-            #     beta=self.config['beta'],
-            #     gamma=self.config['gamma'],
-            #     reduction='mean',
-            #     # boost_factors=boost_factors
-            # )
-            
-            self.criterion = FocalLoss(gamma=1.5) 
-            
-            # self.criterion = ClassBalancedFocalLoss(
-            #     samples_per_class=samples_per_class,
-            #     beta=1.995,
-            #     gamma=1.8,
-            #     boost_factors=boost_factors
-            # )
-          
+            self.criterion = ClassBalancedFocalLoss(
+                samples_per_class=samples_per_class,
+                beta=self.config['beta'],
+                gamma=self.config['gamma'],
+                reduction='mean',
+            )
+                      
         elif self.config['loss'] == "cross-entropy":
+            
             self.criterion = nn.CrossEntropyLoss()
 
         else:
@@ -187,10 +132,7 @@ class TCNTrainer:
         for sequences, labels in loop:
             sequences = sequences.to(self.device)
             labels = self._prepare_labels(labels)
-
-            # outputs = self.model(sequences)
-            # loss = self.criterion(outputs, labels)
-            
+          
             # ****TEMP***
             outputs, _ = self.model(sequences)  
             loss = self.criterion(outputs, labels)
@@ -268,8 +210,6 @@ class TCNTrainer:
             print(f"Epoch {epoch + 1}/{self.config['epochs']}")
             train_loss, train_acc = self._train_epoch()
             
-            # val_loss, val_acc, all_preds, all_labels = self._validate()
-            # ***TEMP***
             val_loss, val_acc, all_preds, all_labels, tsne_embeddings, tsne_labels = self._validate()
 
             train_losses.append(train_loss)
@@ -279,8 +219,27 @@ class TCNTrainer:
 
             print(f"Train Loss: {train_loss:.4f}, Acc: {train_acc:.4f} | Val Loss: {val_loss:.4f}, Acc: {val_acc:.4f}")
             
-            if epoch % 10 == 0 or epoch == (self.config['epochs'] - 1):
-                self._log_per_class_metrics(all_preds, all_labels, epoch)     
+            # Directory to store model metrics and parameters
+            model_directory = os.path.join("reports", "model_evaluations", {self.timestamp})
+            os.makedirs(model_directory, exist_ok=True)
+            
+            log_class_freq = self.config['log_per_class_freq']
+            plot_confusion_freq = self.config['plot_confusion_freq']
+            plot_tsne_freq = self.config['plot_tsne_freq']
+
+            if log_class_freq and (epoch % log_class_freq == 0 or epoch == self.config['epochs'] - 1):
+                os.makedirs(model_directory, "per_class_metrics", exist_ok=True)
+                self._log_per_class_metrics(all_preds, all_labels, epoch, model_directory)     
+
+            if plot_confusion_freq and (epoch % plot_confusion_freq == 0 or epoch == self.config['epochs'] - 1):
+                self._plot_confusion_matrix(all_preds, all_labels, model_directory)
+
+            if plot_tsne_freq and (epoch % plot_tsne_freq == 0 or epoch == self.config['epochs'] - 1):
+                self._plot_tsne(tsne_embeddings, tsne_labels, epoch, model_directory)
+
+
+            # if epoch % 10 == 0 or epoch == (self.config['epochs'] - 1):
+            #     self._log_per_class_metrics(all_preds, all_labels, epoch)     
                 
             # if epoch % 50 == 0 or epoch == (self.config['epochs'] - 1):
             #     self._plot_tsne(tsne_embeddings, tsne_labels, epoch)
@@ -293,12 +252,63 @@ class TCNTrainer:
             if self.patience_counter >= self.config['patience']:
                 print("Early stopping triggered.")
                 break
+            
+        self._plot_train_val_curves(train_losses, val_losses, train_accuracies, val_accuracies, self.config, model_directory)
+
+
+    def _log_per_class_metrics(self, all_preds, all_labels, epoch, model_directory):
+        preds = torch.cat(all_preds).cpu().numpy()
+        labels = torch.cat(all_labels).cpu().numpy()
+
+        report = classification_report(
+            labels, preds,
+            labels=list(range(1, len(self.config['phase_names']) + 1)),
+            target_names=self.config['phase_names'],
+            digits=4,
+            output_dict=True
+        )
+
+        df = pd.DataFrame(report).transpose()
+
+        # Round numeric columns to 4 decimal places for readability
+        df = df.round(4)
+
+        # Create save directory
+        save_dir = os.path.join(model_directory, "per_class_metrics")
+        os.makedirs(save_dir, exist_ok=True)
+
+        # Save CSV
+        save_path = os.path.join(save_dir, f"epoch_{epoch}_class_performance.csv")
+        df.to_csv(save_path)
+
+
+
+    # def _log_per_class_metrics(self, all_preds, all_labels, epoch, model_directory):
+    #     preds = torch.cat(all_preds).cpu().numpy()
+    #     labels = torch.cat(all_labels).cpu().numpy()
+
+    #     report = classification_report(
+    #         labels, preds,
+    #         labels=list(range(1, len(self.config['phase_names']) + 1)),
+    #         target_names=self.config['phase_names'],
+    #         digits=4,
+    #         output_dict=True,
+    #         zero_division=0
+    #     )
+
+    #     # Save to CSV
+    #     df = pd.DataFrame(report).transpose()
         
-        self._plot_metrics(train_losses, val_losses, train_accuracies, val_accuracies, self.config)
-        self._plot_confusion_matrix(all_preds, all_labels)        
+    #     # os.makedirs(f"reports/logs/training_logs/{self.timestamp}", exist_ok=True)
+    #     # save_path = os.path.join(f"reports/logs/training_logs/{self.timestamp}/epoch_{epoch}_class_performance")
+        
+    #     save_path = os.path.join(model_directory, "per_class_metrics", f"epoch_{epoch}_class_performance", exist_ok=True)
+        
+    #     df.to_csv(save_path)
 
 
-    def _plot_confusion_matrix(self, all_preds, all_labels):
+    def _plot_confusion_matrix(self, all_preds, all_labels, model_directory):
+        
         all_preds = torch.cat(all_preds).numpy()
         all_labels = torch.cat(all_labels).numpy()
 
@@ -306,17 +316,46 @@ class TCNTrainer:
         cm = confusion_matrix(all_labels, all_preds, labels=np.arange(1, len(phase_names) + 1))
         cm_normalised = cm.astype('float') / cm.sum(axis=1, keepdims=True)
 
+
         plt.figure(figsize=(12, 10))
         sns.heatmap(cm_normalised, annot=True, fmt='.2f', cmap='Blues', xticklabels=phase_names, yticklabels=phase_names)
         plt.xlabel("Predicted phase")
         plt.ylabel("True phase")
         plt.xticks(rotation=45, ha='right')
         plt.tight_layout()
+        
+        save_path = os.path.join(model_directory, "confusion.png")
+        
+        plt.savefig(save_path)
         plt.show()
-        print("\nClassification Report:")
-        print(classification_report(all_labels, all_preds, digits=4, zero_division=0))
 
-    def _plot_metrics(self, train_loss, val_loss, train_acc, val_acc, config):
+    def _plot_tsne(self, embeddings, labels, epoch, model_directory):
+        
+        # Convert to numpy if needed
+        if isinstance(embeddings, torch.Tensor):
+            embeddings = embeddings.cpu().numpy()
+        if isinstance(labels, torch.Tensor):
+            labels = labels.cpu().numpy()
+
+        # Run t-SNE
+        tsne = TSNE(n_components=2, perplexity=30, learning_rate='auto', init='pca', random_state=42)
+        reduced = tsne.fit_transform(embeddings)
+
+        # Plot
+        plt.figure(figsize=(10, 8))
+        sns.scatterplot(x=reduced[:, 0], y=reduced[:, 1], hue=labels, palette="tab10", legend='full')
+        plt.title(f"t-SNE Visualization at Epoch {epoch}")
+        plt.xlabel("Component 1")
+        plt.ylabel("Component 2")
+        plt.legend(title="Class", bbox_to_anchor=(1.05, 1), loc='upper left')
+        plt.tight_layout()
+        
+        save_path = os.path.join(model_directory, "tsne.png")
+
+        plt.savefig(save_path)
+        plt.close()
+
+    def _plot_train_val_curves(self, train_loss, val_loss, train_acc, val_acc, config, model_directory):
         
         plt.figure(figsize=(10, 6))
 
@@ -345,65 +384,25 @@ class TCNTrainer:
         plt.figtext(0.5, 0.01, config_text, ha='center', fontsize=8)
 
         # Save the plot (overwrite same file)
+        
+        save_path = os.path.join(model_directory, "train_val_curves.png")
+        
         plt.tight_layout()
-        plt.savefig(self.training_metrics_path)
+        plt.savefig(save_path)
         plt.close()
         
         
-    def _log_per_class_metrics(self, all_preds, all_labels, epoch):
-        preds = torch.cat(all_preds).cpu().numpy()
-        labels = torch.cat(all_labels).cpu().numpy()
-
-        report = classification_report(
-            labels, preds,
-            labels=list(range(1, len(self.config['phase_names']) + 1)),
-            target_names=self.config['phase_names'],
-            digits=4,
-            output_dict=True
-        )
-
-        # Save to CSV
-        df = pd.DataFrame(report).transpose()
-        os.makedirs(f"reports/logs/training_logs/{self.timestamp}", exist_ok=True)
-        save_path = os.path.join(f"reports/logs/training_logs/{self.timestamp}/epoch_{epoch}_class_performance")
-        df.to_csv(save_path)
-
-    def _plot_tsne(self, embeddings, labels, epoch):
-        
-        # Convert to numpy if needed
-        if isinstance(embeddings, torch.Tensor):
-            embeddings = embeddings.cpu().numpy()
-        if isinstance(labels, torch.Tensor):
-            labels = labels.cpu().numpy()
-
-        # Run t-SNE
-        tsne = TSNE(n_components=2, perplexity=30, learning_rate='auto', init='pca', random_state=42)
-        reduced = tsne.fit_transform(embeddings)
-
-        # Plot
-        plt.figure(figsize=(10, 8))
-        sns.scatterplot(x=reduced[:, 0], y=reduced[:, 1], hue=labels, palette="tab10", legend='full')
-        plt.title(f"t-SNE Visualization at Epoch {epoch}")
-        plt.xlabel("Component 1")
-        plt.ylabel("Component 2")
-        plt.legend(title="Class", bbox_to_anchor=(1.05, 1), loc='upper left')
-        plt.tight_layout()
-
-
-        plt.savefig(self.tsne_path)
-        plt.close()
-
-
-
-    def _save_best_model(self, val_loss):
+    def _save_best_model(self, val_loss, model_directory):
         
         if val_loss < self.best_val_loss:
             self.best_val_loss = val_loss
             self.patience_counter = 0
+            
+            save_path = os.path.join(model_directory, "best_model.pt")
 
             # Save the model
-            torch.save(self.model.state_dict(), self.best_model_path)
-            print(f"Best model saved to {self.best_model_path}")
+            torch.save(self.model.state_dict(), save_path)
+            print(f"Best model saved to {save_path}")
         else:
             self.patience_counter += 1
             print(f"No improvement. Patience: {self.patience_counter}/{self.config['patience']}")
