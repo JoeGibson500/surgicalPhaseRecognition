@@ -111,7 +111,7 @@ config = {
     'model_save_path': BEST_MODEL_PATH,
     'batch_size': 16,
     'lr': 1e-6,
-    'epochs': 30,
+    'epochs': 10,
     'patience': 150,
     'gamma' :  2.0,
     'beta' : 0.9,
@@ -125,8 +125,8 @@ config = {
         11: 0.85,
         12: 2.0
     },
-    'log_per_class_freq:' : 10,
-    'plot_confusion_freq:': 15,
+    'log_per_class_freq' : 10,
+    'plot_confusion_freq': 15,
     'plot_tsne_freq': 0, 
     'phase_names': [
         "pull through", "placing rings", "suture pick up", "suture pull through",

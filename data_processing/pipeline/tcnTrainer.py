@@ -220,7 +220,7 @@ class TCNTrainer:
             print(f"Train Loss: {train_loss:.4f}, Acc: {train_acc:.4f} | Val Loss: {val_loss:.4f}, Acc: {val_acc:.4f}")
             
             # Directory to store model metrics and parameters
-            model_directory = os.path.join("reports", "model_evaluations", {self.timestamp})
+            model_directory = os.path.join("reports", "model_evaluations", self.timestamp)
             os.makedirs(model_directory, exist_ok=True)
             
             log_class_freq = self.config['log_per_class_freq']
@@ -228,7 +228,9 @@ class TCNTrainer:
             plot_tsne_freq = self.config['plot_tsne_freq']
 
             if log_class_freq and (epoch % log_class_freq == 0 or epoch == self.config['epochs'] - 1):
-                os.makedirs(model_directory, "per_class_metrics", exist_ok=True)
+                
+                dir = os.path.join(model_directory, "per_class_metrics")
+                os.makedirs(dir, exist_ok=True)
                 self._log_per_class_metrics(all_preds, all_labels, epoch, model_directory)     
 
             if plot_confusion_freq and (epoch % plot_confusion_freq == 0 or epoch == self.config['epochs'] - 1):
@@ -247,7 +249,7 @@ class TCNTrainer:
             # if epoch % 5 == 0:
             #     self._plot_confusion_matrix(all_preds, all_labels)
             
-            self._save_best_model(val_loss)
+            self._save_best_model(val_loss, model_directory)
 
             if self.patience_counter >= self.config['patience']:
                 print("Early stopping triggered.")
@@ -327,7 +329,7 @@ class TCNTrainer:
         save_path = os.path.join(model_directory, "confusion.png")
         
         plt.savefig(save_path)
-        plt.show()
+        # plt.show()
 
     def _plot_tsne(self, embeddings, labels, epoch, model_directory):
         
